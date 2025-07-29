@@ -12,6 +12,7 @@ using APIPractice.Services.IService;
 using System.Security.Claims;
 using System.Linq;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
+using Microsoft.AspNet.Identity;
 
 namespace APIPractice.Controller
 {
@@ -25,14 +26,15 @@ namespace APIPractice.Controller
         {
             this.productService = productService;
         }
+
         [HttpGet]
         [ValidateModel]
         [Authorize(Roles = "Customer,Manager")]
-        public async Task<IActionResult> GetAll([FromQuery] string? categoryName, [FromQuery] string? filterQuery)
+        public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
         {
             try
             {
-                var products = await productService.GetAllProductAsync(categoryName, filterQuery);
+                var products = await productService.GetAllProductAsync(filterOn, filterQuery);
 
                 var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
@@ -45,13 +47,13 @@ namespace APIPractice.Controller
                         Price = p.Price,
                         Units = p.Units,
                         ImageUrl = p.ImageUrl,
-                        Category = p.Category,
+                        Category = p.Category
                     }).ToList();
 
                     return Ok(productsCustomerDto);
                 }
 
-                if(role == "Manager")
+                if (role == "Manager")
                 {
                     return Ok(products);
                 }
@@ -64,21 +66,42 @@ namespace APIPractice.Controller
             }
             
         }
+
         [HttpGet]
         [Route("{id:Guid}")]
         [ValidateModel]
-        [Authorize(Roles = "Employee,Manager")]
+        [Authorize(Roles = "Customer,Manager")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             try
-            {
-                return Ok(await productService.GetProductAsync(id));
+            { 
+                var product = await productService.GetProductAsync(id);
+                var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+                if (role == "Customer")
+                {
+                    var productCustomerDto = new ProductCustomerDto
+                    {
+                        Id = product.Id,
+                        Name = product.Name,
+                        Price = product.Price,
+                        Units = product.Units,
+                        ImageUrl = product.ImageUrl,
+                        Category = product.Category
+                    };
+                    return Ok(productCustomerDto);
+                }
+                if(role== "Manager")
+                {
+                    return Ok(product);
+                }
+                return Forbid();
             }
             catch (KeyNotFoundException ex) 
             {
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost]
         [ValidateModel]
         [Authorize(Roles = "Manager")]
@@ -87,6 +110,7 @@ namespace APIPractice.Controller
             var product = await productService.CreateProductAsync(entity);
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, entity);
         }
+
         [HttpPut]
         [Route("{id:Guid}")]
         [ValidateModel]
@@ -109,6 +133,7 @@ namespace APIPractice.Controller
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpDelete]
         [Route("{id:Guid}")]
         [ValidateModel]

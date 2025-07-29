@@ -9,11 +9,11 @@ namespace APIPractice.Mappings
         public AutoMapperProfile()
         {
             CreateMap<Product, ProductDto>().ReverseMap();
-            //CreateMap<List<Product>, List<ProductDto>>().ReverseMap();
             CreateMap<Product, CreateProductDto>().ReverseMap();
             CreateMap<Product, UpdateProductDto>().ReverseMap();
             CreateMap<OrderItem, OrderItemDto>().ReverseMap();
             CreateMap<OrderItem, OrderHistoryDto>().ReverseMap();
+            CreateMap<Order, OrderHistoryDto>().ReverseMap();
             CreateMap<Customer, CustomerDto>().ReverseMap();
         }
     }

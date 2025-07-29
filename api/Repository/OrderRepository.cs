@@ -40,7 +40,7 @@ namespace APIPractice.Repository
         public async Task<List<Order>> GetOrderHistoryOfCustomer(Guid customerId)
         {
             List<Order> orders = await db.Orders.Include("OrderItems").Include("OrderStatus").Include("OrderItems.Product").
-                Include("OrderItems.Product.Category").Where(x=>x.CustomerId == customerId).ToListAsync();
+                Include("OrderItems.Product.Category").Include("Customer").Where(x=>x.CustomerId == customerId).ToListAsync();
 
             if(orders == null || orders.Count == 0)
             {
@@ -52,7 +52,7 @@ namespace APIPractice.Repository
         public async Task<Order> GetOrderByIdAsync(Guid orderId, Guid customerId)
         {
             Order? order = await db.Orders.Include("OrderItems").Include("OrderStatus").Include("OrderItems.Product").
-                Include("OrderItems.Product.Category").FirstOrDefaultAsync(x => x.CustomerId == customerId && x.Id == orderId);
+                Include("OrderItems.Product.Category").Include("Customer").FirstOrDefaultAsync(x => x.CustomerId == customerId && x.Id == orderId);
 
             if(order == null)
             {

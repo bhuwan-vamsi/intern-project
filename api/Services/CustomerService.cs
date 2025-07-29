@@ -36,7 +36,9 @@ namespace APIPractice.Services
                 throw new Exception("User Not Found");
             }
             Customer customer = await customerRepository.GetById(userId);
-            return mapper.Map<CustomerDto>(customer);
+            CustomerDto customerDto = mapper.Map<CustomerDto>(customer);
+            customerDto.Email = identity.FindFirst(ClaimTypes.Email).Value;
+            return customerDto;
 
         }
     }

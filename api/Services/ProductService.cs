@@ -33,10 +33,11 @@ namespace APIPractice.Services
             await productRepo.DeleteAsync(product);
         }
 
-        public async Task<List<ProductDto>> GetAllProductAsync(string? categoryName, string? filterQuery)
+        public async Task<List<ProductDto>> GetAllProductAsync(string? filterOn, string? filterQuery)
         {
-            var products = await productRepo.GetAllAsync(categoryName, filterQuery);
+            var products = await productRepo.GetAllAsync(filterOn, filterQuery);
             return mapper.Map<List<ProductDto>>(products);
+            
         }
         public async Task<ProductDto> GetProductAsync(Guid id)
         {

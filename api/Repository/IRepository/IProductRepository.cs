@@ -1,4 +1,5 @@
-﻿using APIPractice.Models.DTO;
+﻿using APIPractice.Models.Domain;
+using APIPractice.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIPractice.Repository.IRepository
@@ -11,5 +12,6 @@ namespace APIPractice.Repository.IRepository
         Task UpdateAsync(Product existing, UpdateProductDto entity, Guid managerId);
         Task UpdateQuantityAsync(Guid id, Product product);
         Task DeleteAsync(Product entity);
+        Task<List<Category>> GetAllCategoriesAsync();
     }
 }

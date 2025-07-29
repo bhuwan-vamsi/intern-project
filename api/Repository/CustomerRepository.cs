@@ -19,7 +19,7 @@ namespace APIPractice.Repository
         {
             try
             {
-                Customer? customer = await db.Customers.FirstOrDefaultAsync(x => x.Id == id);
+                var customer = await db.Customers.FirstOrDefaultAsync(x => x.Id == id);
                 if (customer == null)
                 {
                     throw new Exception("User Not Found");
@@ -35,7 +35,7 @@ namespace APIPractice.Repository
         {
             try
             {
-                Customer existingCustomer = await db.Customers.FirstOrDefaultAsync(u => u.Id == id);
+                var existingCustomer = await db.Customers.FirstOrDefaultAsync(u => u.Id == id);
                 if (existingCustomer == null)
                 {
                     throw new Exception("The user is not found");

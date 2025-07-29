@@ -1,4 +1,5 @@
 ﻿using APIPractice.Models.Domain;
+using APIPractice.CustomAcitonFilters;
 using APIPractice.Models.DTO;
 using APIPractice.Services.IService;
 using Microsoft.AspNetCore.Authorization;
@@ -21,6 +22,7 @@ namespace APIPractice.Controllers
         }
         [HttpGet]
         [Route("ViewProfile")]
+        [ValidateModel]
         [Authorize(Roles ="Customer")]
         public async Task<IActionResult> ViewProfile()
         {
@@ -38,6 +40,7 @@ namespace APIPractice.Controllers
 
         [HttpPost]
         [Route("EditProfile")]
+        [ValidateModel]
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> EditProfile([FromBody] EditProfileRequest request)
         {
