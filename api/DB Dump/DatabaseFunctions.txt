@@ -1,0 +1,6 @@
+﻿To kill all the sessions connected to a database, we can use
+
+USE master;
+GO
+ALTER DATABASE [db] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+DROP DATABASE [db];

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\btm8xyh\\Desktop\\intern-project\\api\\APIPractice.csproj": {}
+    "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\APIPractice.csproj": {}
   },
   "projects": {
-    "C:\\Users\\btm8xyh\\Desktop\\intern-project\\api\\APIPractice.csproj": {
+    "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\APIPractice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\btm8xyh\\Desktop\\intern-project\\api\\APIPractice.csproj",
+        "projectUniqueName": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\APIPractice.csproj",
         "projectName": "APIPractice",
-        "projectPath": "C:\\Users\\btm8xyh\\Desktop\\intern-project\\api\\APIPractice.csproj",
-        "packagesPath": "C:\\Users\\btm8xyh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\btm8xyh\\Desktop\\intern-project\\api\\obj\\",
+        "projectPath": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\APIPractice.csproj",
+        "packagesPath": "C:\\Users\\bhunv\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\btm8xyh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\bhunv\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -51,9 +51,33 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.1, )"
+            },
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.1.0, )"
+            },
+            "Microsoft.AspNet.Identity.Core": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.18, )"
+            },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.18, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -69,9 +93,17 @@
               "target": "Package",
               "version": "[9.0.6, )"
             },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[7.1.2, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.1.2, )"
             }
           },
           "imports": [
@@ -93,7 +125,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

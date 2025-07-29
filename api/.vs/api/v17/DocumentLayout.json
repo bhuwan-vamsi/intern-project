@@ -1,23 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\btm8xyh\\Desktop\\intern-project\\api\\",
+  "WorkspaceRootPath": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\",
   "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }
