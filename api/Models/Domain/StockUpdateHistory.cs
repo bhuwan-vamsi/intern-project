@@ -14,8 +14,7 @@ namespace APIPractice.Models.Domain
 
         public int Quantity { get; set; }
 
-        public DateTime TimeStamp { get; set; }
-
+        public DateTime UpdatedAt { get; set; }
 
         // Navigation Properties
         [ForeignKey(nameof(ProductId))]

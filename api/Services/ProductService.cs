@@ -17,10 +17,10 @@ namespace APIPractice.Services
             this.productRepo = productRepo;
             this.mapper = mapper;
         }
-        public async Task<Product> CreateProductAsync(CreateProductDto createProductDto)
+        public async Task<Product> CreateProductAsync(CreateProductDto createProductDto, Guid managerId)
         {
             var product = mapper.Map<Product>(createProductDto);
-            return (await productRepo.CreateAsync(product));
+            return (await productRepo.CreateAsync(product,managerId));
         }
 
         public async Task DeleteProductAsync(Guid id)
@@ -33,15 +33,34 @@ namespace APIPractice.Services
             await productRepo.DeleteAsync(product);
         }
 
-        public async Task<List<ProductDto>> GetAllProductAsync(string? filterOn, string? filterQuery)
+        public async Task<List<ProductDto>> GetAllProductAsync(string? categoryName, string? filterQuery, string? sortBy, bool IsAscending, int PageNumber, int PageSize)
         {
-            var products = await productRepo.GetAllAsync(filterOn, filterQuery);
-            return mapper.Map<List<ProductDto>>(products);
-            
+            var products = await productRepo.GetAllAsync(categoryName, filterQuery, sortBy, IsAscending, PageNumber, PageSize);
+            var productDto = mapper.Map<List<ProductDto>>(products);
+            foreach(var product in productDto)
+            {
+                if(product.Quantity < product.Threshold)
+                {
+                    product.ProductStatus = "LowStock";
+                }
+                else if (product.Quantity == 0)
+                {
+                    product.ProductStatus = "OutOfStock";
+                }
+                else
+                {
+                    product.ProductStatus = "InStock";
+                }
+            }
+            return productDto;
+
         }
-        public async Task<ProductDto> GetProductAsync(Guid id)
+        public async Task<ProductDto> GetProductAsync(Guid id, string role)
         {
             var product = await productRepo.GetAsync(id);
+            if(role == "Customer" && product.IsActive == false)
+            {
+                throw new KeyNotFoundException("Product Not Found");            }
             return mapper.Map<ProductDto>(product);
         }
 

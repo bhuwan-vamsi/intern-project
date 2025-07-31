@@ -1,36 +1,41 @@
 ﻿using APIPractice.CustomAcitonFilters;
+using APIPractice.Exceptions;
 using APIPractice.Models.Domain;
 using APIPractice.Models.DTO;
+using APIPractice.Models.Responses;
 using APIPractice.Services.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
 namespace APIPractice.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class OrdersController : ControllerBase
     {
         private readonly IOrderService orderService;
 
-        public OrderController(IOrderService orderService)
+        public OrdersController(IOrderService orderService)
         {
             this.orderService = orderService;
         }
         [HttpPost]
-        [Route("CheckOut")]
         [ValidateModel]
         [Authorize(Roles = "Customer")]
-        public async Task<IActionResult> CheckOut([FromBody]PurchaseOrderRequest orders)
+        public async Task<IActionResult> CreateOrder([FromBody]PurchaseOrderRequest orders)
         {
             try
             {
-                var claimsIdentity = (ClaimsIdentity)User.Identity;
-                await orderService.CheckOut(orders, claimsIdentity);
-                return Ok("Your Order was successfull");
-            }catch (Exception ex)
+                var userId = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var id)
+                    ? id : throw new UnauthorizedAccessException("Invalid or missing user ID.");
+
+                List<ItemResponseDto> statusList = await orderService.CheckOut(orders, userId);
+                
+                return Ok(OkResponse<List<ItemResponseDto>>.Success(statusList));
+            }catch (BadRequestException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -45,9 +50,13 @@ namespace APIPractice.Controllers
         {
             try
             {
-                var claimsIdentity = (ClaimsIdentity)User.Identity;
-                List<OrderHistoryDto> history = await orderService.ViewHistory(claimsIdentity);
-                return Ok(history);
+                var userId = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var id)
+                    ? id : throw new UnauthorizedAccessException("Invalid or missing user ID.");
+
+                List<OrderHistoryDto> history = await orderService.ViewHistory(userId);
+
+                return (history.Count>0) ? Ok(OkResponse<List<OrderHistoryDto>>.Success(history)) 
+                    : Ok(OkResponse<List<OrderHistoryDto>>.Empty());
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -62,9 +71,13 @@ namespace APIPractice.Controllers
         {
             try
             {
-                var identityUser = (ClaimsIdentity)User.Identity;
-                OrderHistoryDto order = await orderService.ViewOrderById(id,identityUser);
-                return Ok(order);
+                var userId = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var tempid)
+                    ? tempid : throw new UnauthorizedAccessException("Invalid or missing user ID.");
+
+                OrderHistoryDto? history = await orderService.ViewOrderById(id,userId);
+
+                return (history != null) ? Ok(OkResponse<OrderHistoryDto>.Success(history))
+                    : Ok(OkResponse<OrderHistoryDto>.Empty());
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);

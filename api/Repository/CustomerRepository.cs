@@ -1,4 +1,5 @@
 ﻿using APIPractice.Data;
+using APIPractice.Exceptions;
 using APIPractice.Models.Domain;
 using APIPractice.Models.DTO;
 using APIPractice.Repository.IRepository;
@@ -39,6 +40,10 @@ namespace APIPractice.Repository
                 if (existingCustomer == null)
                 {
                     throw new Exception("The user is not found");
+                }
+                if (db.Customers.Any(c => c.Phone == request.Phone && c.Id != id)) 
+                {
+                    throw new ConflictException("Phone Number Already Exists");
                 }
                 existingCustomer.Name = request.Name;
                 existingCustomer.Address = request.Address;

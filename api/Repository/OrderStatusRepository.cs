@@ -19,17 +19,21 @@ namespace APIPractice.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<Guid> GetIdOfStatus(string name)
+        public async Task<OrderStatus> GetStatus(string name)
         {
-            OrderStatus? status = await db.OrderStatuses.FirstOrDefaultAsync(x => x.Name.ToLower() == name);
-            return status.Id;
-        }
-
-        public async Task<OrderStatus> GetOrderStatusById(Guid id)
-        {
-            OrderStatus? status = await db.OrderStatuses.FirstOrDefaultAsync(x => x.Id == id);
+            var status = await db.OrderStatuses.FirstOrDefaultAsync(x => x.Name.ToLower() == name);
+            if (status == null)
+            {
+                throw new KeyNotFoundException("Order Status Not Found");
+            }
             return status;
         }
+
+        //public async Task<OrderStatus> GetOrderStatusById(Guid id)
+        //{
+        //    OrderStatus? status = await db.OrderStatuses.FirstOrDefaultAsync(x => x.Id == id);
+        //    return status;
+        //}
 
         //public async Task<OrderStatus> AddAsync(OrderStatus orderStatus)
         //{

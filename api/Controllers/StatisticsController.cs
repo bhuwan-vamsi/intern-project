@@ -20,16 +20,47 @@ namespace APIPractice.Controllers
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetInventorySummary()
         {
-            var inventorySummary = await statisticService.InventorySummary();
-            return Ok(inventorySummary);
+            try
+            {
+                var inventorySummary = await statisticService.InventorySummary();
+                return Ok(inventorySummary);
+            }
+            catch (Exception) {
+                return BadRequest("An error occurred while fetching the inventory summary.");
+            }
         }
         [HttpGet]
         [Route("CategoryDistribution")]
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetCategoryDistribuiton()
         {
-            var categoryDistribution = await statisticService.CategoryDistribution();
-            return Ok(categoryDistribution);
+            try
+            {
+                var categoryDistribution = await statisticService.CategoryDistribution();
+                return Ok(categoryDistribution);
+            }
+            catch (Exception)
+            {
+                return BadRequest("An error occurred while fetching the category distribution.");
+            }
+        }
+        [HttpGet]
+        [Route("FastMovingProduct")]
+        public async Task<IActionResult> GetFastMovingProducts()
+        {
+            try
+            {
+                var fastMovingProduct = await statisticService.MostSoldProducts();
+                return Ok(fastMovingProduct);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("No fast moving product found.");
+            }
+            catch (Exception)
+            {
+                return BadRequest("An error occurred while fetching the fast moving product.");
+            }
         }
     }
 }

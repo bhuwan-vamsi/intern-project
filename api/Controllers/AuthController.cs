@@ -1,5 +1,6 @@
 ﻿using APIPractice.CustomAcitonFilters;
 using APIPractice.Models.DTO;
+using APIPractice.Models.Responses;
 using APIPractice.Repository;
 using APIPractice.Repository.IRepository;
 using APIPractice.Services.IService;
@@ -30,7 +31,7 @@ namespace APIPractice.Controller
             try
             {
                 var response = await authService.LoginUser(loginRequest);
-                return Ok(response);
+                return Ok(OkResponse<LoginResponseDto>.Success(response));
             }
             catch (Exception ex)
             {
@@ -46,7 +47,7 @@ namespace APIPractice.Controller
             try
             {
                 await authService.RegisterCustomer(registerCustomerRequest);
-                return Ok("Customer Registered");
+                return Created();
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);

@@ -1,5 +1,6 @@
 using APIPractice.Data;
 using APIPractice.ExcpetionHandling;
+using APIPractice.Infrastructure;
 using APIPractice.Mappings;
 using APIPractice.Models.Domain;
 using APIPractice.Models.DTO;
@@ -49,6 +50,7 @@ namespace APIPractice
 
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<TransactionManager>();
             //// Hide the below line once after running whole app
             //builder.Services.AddScoped<ProductCsvImporter>();
             builder.Services.AddScoped<IRegisterUserRepository, RegisterUserRepository>();
@@ -64,7 +66,7 @@ namespace APIPractice
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Manager Test API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "API Test", Version = "v1" });
                 options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -116,9 +118,14 @@ namespace APIPractice
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                 });
 
+            builder.WebHost.ConfigureKestrel(serverOptions =>
+            {
+                serverOptions.ListenAnyIP(5000);
+            });
+
             var app = builder.Build();
 
-            //app.UseMiddleware<ExceptionHandlingMiddleware>();
+            app.UseMiddleware<BadRequestExceptionHandler>();
 
             //using (var scope = app.Services.CreateScope())
             //{
@@ -136,11 +143,17 @@ namespace APIPractice
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
-            app.UseAuthentication();
+            //app.UseAuthentication();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
+
+            app.Use(async (context, next) =>
+            {
+                Console.WriteLine($"Incoming request from {context.Connection.RemoteIpAddress}");
+                await next();
+            });
 
             app.MapControllers();
 

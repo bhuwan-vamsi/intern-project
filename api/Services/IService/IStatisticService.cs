@@ -1,4 +1,5 @@
-﻿using APIPractice.Models.DTO;
+﻿using APIPractice.Models.Domain;
+using APIPractice.Models.DTO;
 
 namespace APIPractice.Services.IService
 {
@@ -6,5 +7,6 @@ namespace APIPractice.Services.IService
     {
         Task<InventorySummaryDto> InventorySummary();
         Task<CategoryDistributionDto> CategoryDistribution();
+        Task<ProductDto> MostSoldProducts();
     }
 }

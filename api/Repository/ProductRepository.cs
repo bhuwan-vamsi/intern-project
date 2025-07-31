@@ -1,4 +1,5 @@
 ﻿using APIPractice.Data;
+using APIPractice.Infrastructure;
 using APIPractice.Models.Domain;
 using APIPractice.Models.DTO;
 using APIPractice.Repository.IRepository;
@@ -7,38 +8,59 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
 
 namespace APIPractice.Repository
 {
     public class ProductRepository : IProductRepository<Product>
     {
         private readonly ApplicationDbContext _db;
-        public ProductRepository(ApplicationDbContext db) 
+        private readonly TransactionManager transactionManager;
+
+        public ProductRepository(ApplicationDbContext db, TransactionManager transactionManager) 
         {
             _db = db;
+            this.transactionManager = transactionManager;
         }
-        public async Task<List<Product>> GetAllAsync(string? filterOn, string? filterQuery = null)
+        public async Task<List<Product>> GetAllAsync(string? category, string? filterQuery = null,string? sortBy=null, bool isAscending= true, int pageNumber=1, int pageSize= int.MaxValue)
         {
             var products = _db.Products.Include("Category").AsQueryable();
 
             // filtering
-            if (!string.IsNullOrWhiteSpace(filterOn))
+            if (!string.IsNullOrWhiteSpace(category))
             {
-                if (filterOn.Equals("Category", StringComparison.OrdinalIgnoreCase) && filterQuery!=null)
+                products = products.Where(x => x.Category.Name.Equals(category));
+            }
+            if(!string.IsNullOrWhiteSpace(filterQuery))
+            {
+                products = products.Where(x => x.Name.ToLower().Contains(filterQuery.ToLower()));
+            }
+            if (!string.IsNullOrWhiteSpace(sortBy))
+            {
+                if (sortBy.Equals("UnitPrice", StringComparison.OrdinalIgnoreCase))
                 {
-                    products = products.Include("Category").Where(x => x.Category.Name.Equals(filterQuery));
+                    products = isAscending ? products.OrderBy(x => x.Price) : products.OrderByDescending(x => x.Price);
                 }
-                if(filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase) && filterQuery!=null)
+                else if (sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
                 {
-                    products = products.Include("Category").Where(x => x.Name.ToLower().Contains(filterQuery.ToLower()));
+                    products = isAscending ? products.OrderBy(x => x.Name) : products.OrderByDescending(x => x.Name);
+                }
+                else if (sortBy.Equals("Quantity", StringComparison.OrdinalIgnoreCase))
+                {
+                    products = isAscending ? products.OrderBy(x => x.Quantity) : products.OrderByDescending(x => x.Quantity);
+                }
+                else if(sortBy.Equals("Threshold", StringComparison.OrdinalIgnoreCase))
+                {
+                    products = isAscending ? products.OrderBy(x => x.Threshold) : products.OrderByDescending(x => x.Units);
                 }
             }
-            return await products.ToListAsync();
+            var skip = (pageNumber - 1) * pageSize;
+            return await products.Skip(skip).Take(pageSize).ToListAsync();
         }
 
         public async Task<Product> GetAsync(Guid id)
         {
-            var product= await _db.Products.Include("Category").FirstOrDefaultAsync(u=> u.Id == id && u.IsActive==true);
+            var product= await _db.Products.Include("Category").FirstOrDefaultAsync(u=> u.Id == id);
             if (product == null)
             {
                 throw new KeyNotFoundException("Product Not Found");
@@ -46,17 +68,24 @@ namespace APIPractice.Repository
             return product;
         }
 
-        public async Task<Product> CreateAsync(Product entity)
+        public async Task<Product> CreateAsync(Product entity, Guid managerId)
         {
             entity.IsActive = true;
+            var stockUpdate = new StockUpdateHistory
+            {
+                Id = Guid.NewGuid(),
+                ProductId = entity.Id,
+                ManagerId = managerId,
+                Quantity = entity.Quantity,
+                UpdatedAt = DateTime.Now
+            };
             await _db.Products.AddAsync(entity);
             await _db.SaveChangesAsync();
             return entity;
         }
         public async Task UpdateAsync(Product existingProduct, UpdateProductDto updatedProduct, Guid managerId)
         {
-            using var transaction = await _db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable);
-            try
+            await transactionManager.ExecuteInTransactionAsync(async () =>
             {
                 if (existingProduct.Quantity != updatedProduct.Quantity && existingProduct.Quantity < updatedProduct.Quantity)
                 {
@@ -66,7 +95,7 @@ namespace APIPractice.Repository
                         ProductId = existingProduct.Id,
                         ManagerId = managerId,
                         Quantity = updatedProduct.Quantity,
-                        TimeStamp = DateTime.UtcNow
+                        UpdatedAt = DateTime.Now
                     };
                     await _db.StockUpdateHistories.AddAsync(stockUpdate);
                     await _db.SaveChangesAsync();
@@ -84,36 +113,55 @@ namespace APIPractice.Repository
                 existingProduct.CategoryId = updatedProduct.CategoryId;
                 _db.Products.Update(existingProduct);
                 await _db.SaveChangesAsync();
-                await transaction.CommitAsync();
-            }
-            catch
-            {
-                await transaction.RollbackAsync();
-                throw;
-            }
-            
+            });
         }
         public async Task UpdateQuantityAsync(Guid id, Product product)
         {
-            var existingProduct = _db.Products.Include("Category").FirstOrDefault(p => p.Id == id);
-            if(existingProduct == null)
+            await transactionManager.ExecuteInTransactionAsync(async () =>
             {
-                throw new KeyNotFoundException("Product Not Found");
-            }
-            existingProduct.Quantity = product.Quantity;
-            _db.Products.Update(existingProduct);
-            await _db.SaveChangesAsync();
+                if (product.Quantity < 0)
+                {
+                    throw new InvalidOperationException("Quantity cannot be negative.");
+                }
+
+                var existingProduct = _db.Products.Include("Category").FirstOrDefault(p => p.Id == id);
+                if (existingProduct == null)
+                {
+                    throw new KeyNotFoundException("Product Not Found");
+                }
+                existingProduct.Quantity = product.Quantity;
+                _db.Products.Update(existingProduct);
+                await _db.SaveChangesAsync();
+            });
         }
 
         public async Task DeleteAsync(Product product)
         {
-            product.IsActive = !product.IsActive;
-            _db.Products.Update(product);
-            await _db.SaveChangesAsync();
+            await transactionManager.ExecuteInTransactionAsync(async () =>
+            {
+                if (product == null)
+                {
+                    throw new KeyNotFoundException("Product Not Found");
+                }
+                product.IsActive = !product.IsActive;
+                _db.Products.Update(product);
+                await _db.SaveChangesAsync();
+            });
         }
         public async Task<List<Category>> GetAllCategoriesAsync()
         {
             return await _db.Categories.ToListAsync();
+        }
+
+        public async Task<List<Product>> GetAllByIdsAsync(List<Guid> productIds)
+        {
+            return await _db.Products.Where(p => productIds.Contains(p.Id)).ToListAsync();
+        }
+
+        public async Task UpdateAllQuantityAsync(Dictionary<Guid, Product> productDict)
+        {
+            _db.Products.UpdateRange(productDict.Values);
+            await _db.SaveChangesAsync();
         }
     }
 }

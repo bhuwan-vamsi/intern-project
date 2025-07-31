@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using APIPractice.Models.Responses;
 
 namespace APIPractice.Controllers
 {
@@ -28,9 +29,13 @@ namespace APIPractice.Controllers
         {
             try
             {
-                ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-                CustomerDto customer = await customerService.ViewProfile(identity);
-                return Ok(customer);
+                var identity = User.Identity as ClaimsIdentity;
+                if (identity == null)
+                {
+                    return Unauthorized("User identity not found.");
+                }
+                CustomerDto? customer = await customerService.ViewProfile(identity);
+                return Ok(OkResponse<CustomerDto>.Success(customer));
             }
             catch (Exception ex)
             {
@@ -46,9 +51,13 @@ namespace APIPractice.Controllers
         {
             try
             {
-                var identity = (ClaimsIdentity)User.Identity;
+                var identity = User.Identity as ClaimsIdentity;
+                if(identity == null)
+                {
+                    return Unauthorized("User identity not found.");
+                }
                 await customerService.EditProfile(identity, request);
-                return Ok("Successfully Updated");
+                return NoContent();
             }catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -60,7 +69,7 @@ namespace APIPractice.Controllers
         {
             try
             {
-                var categories = new List<CustomerCategoryDto>
+                var categories =  new List<CustomerCategoryDto>
                 {
                     new CustomerCategoryDto
                     {
@@ -99,7 +108,6 @@ namespace APIPractice.Controllers
                         ImageUrl = ""
                     }
                 };
-
                 return Ok(categories);
             }
             catch (Exception ex)

@@ -1,4 +1,5 @@
-﻿using APIPractice.Models.DTO;
+﻿using APIPractice.Exceptions;
+using APIPractice.Models.DTO;
 using APIPractice.Repository.IRepository;
 using APIPractice.Services.IService;
 using Microsoft.AspNetCore.Http;
@@ -38,21 +39,31 @@ namespace APIPractice.Services
                     identityResult = await userManager.AddToRoleAsync(identityUser, registerCustomerRequest.Role);
                     if (identityResult.Succeeded)
                     {
-                        await userRepository.AddCustomer(registerCustomerRequest, identityUser);
+                        try
+                        {
+                            await userRepository.AddCustomer(registerCustomerRequest, identityUser);
+                        }
+                        catch (Exception e)
+                        {
+                            await userManager.DeleteAsync(identityUser);
+                            throw new NotFoundException("The phone number already exists");
+                        }
                     }
                     else
                     {
-                        throw new Exception("Invalid Role");
+                        await userManager.DeleteAsync(identityUser);
+                        throw new NotFoundException("Invalid Role");
                     }
                 }
                 else
                 {
-                    throw new Exception("Role not specified");
+                    await userManager.DeleteAsync(identityUser);
+                    throw new NotFoundException("Role not specified");
                 }
             }
             else
             {
-                throw new Exception("Username already exists");
+                throw new ConflictException("Username already exists");
             }
 
 

@@ -1,18 +1,11 @@
 ﻿using APIPractice.CustomAcitonFilters;
-using APIPractice.Models.Domain;
 using APIPractice.Models.DTO;
-using APIPractice.Repository.IRepository;
 using APIPractice.Services.IService;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using APIPractice.Services.IService;
 using System.Security.Claims;
-using System.Linq;
-using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using Microsoft.AspNet.Identity;
+using APIPractice.Models.Responses;
 
 namespace APIPractice.Controller
 {
@@ -30,11 +23,11 @@ namespace APIPractice.Controller
         [HttpGet]
         [ValidateModel]
         [Authorize(Roles = "Customer,Manager")]
-        public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
+        public async Task<IActionResult> GetAll([FromQuery] string? category, [FromQuery] string? filterQuery, [FromQuery]string? sortBy,[FromQuery] bool IsAscending,[FromQuery] int PageNumber=1, [FromQuery] int PageSize = int.MaxValue)
         {
             try
             {
-                var products = await productService.GetAllProductAsync(filterOn, filterQuery);
+                var products = await productService.GetAllProductAsync(category, filterQuery,sortBy, IsAscending, PageNumber, PageSize);
 
                 var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
@@ -74,9 +67,9 @@ namespace APIPractice.Controller
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             try
-            { 
-                var product = await productService.GetProductAsync(id);
-                var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            {
+                var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value??throw new UnauthorizedAccessException("Invalid User");
+                var product = await productService.GetProductAsync(id, role);
                 if (role == "Customer")
                 {
                     var productCustomerDto = new ProductCustomerDto
@@ -88,11 +81,11 @@ namespace APIPractice.Controller
                         ImageUrl = product.ImageUrl,
                         Category = product.Category
                     };
-                    return Ok(productCustomerDto);
+                    return Ok(OkResponse<ProductCustomerDto>.Success(productCustomerDto));
                 }
-                if(role== "Manager")
+                else if(role== "Manager")
                 {
-                    return Ok(product);
+                    return Ok(OkResponse<ProductDto>.Success(product));
                 }
                 return Forbid();
             }
@@ -107,7 +100,8 @@ namespace APIPractice.Controller
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto entity)
         {
-            var product = await productService.CreateProductAsync(entity);
+            var managerId = User.FindFirstValue(ClaimTypes.NameIdentifier)??throw new UnauthorizedAccessException("Invalid User");
+            var product = await productService.CreateProductAsync(entity, Guid.Parse(managerId));
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, entity);
         }
 
@@ -126,7 +120,7 @@ namespace APIPractice.Controller
                     return BadRequest("Invalid Token");
                 }
                 await productService.UpdateProductAsync(id, entity, Guid.Parse(managerId));
-                return Ok("Updated Successfully");
+                return Ok(OkResponse<string>.Success("Updated Successfully"));
             }
             catch (KeyNotFoundException ex)
             {
@@ -143,7 +137,8 @@ namespace APIPractice.Controller
             try
             {
                 await productService.DeleteProductAsync(id);
-                return Ok();
+
+                return Ok(OkResponse<string>.Success("Toggled Successfully!"));
             }
             catch (KeyNotFoundException ex)
             {

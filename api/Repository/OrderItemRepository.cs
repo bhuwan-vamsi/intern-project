@@ -2,6 +2,7 @@
 using APIPractice.Models.Domain;
 using APIPractice.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace APIPractice.Repository
 {
@@ -35,6 +36,26 @@ namespace APIPractice.Repository
                 throw new Exception("Order Items not found");
             }
             return orderItems;
+        }
+
+        public async Task<Product> GetMostSoldItem()
+        {
+            var orderItems = db.OrderItems.Include("Product").AsQueryable();
+            if (orderItems == null)
+            {
+                throw new Exception("Order Items not found");
+            }
+            var mostSoldProduct = await orderItems
+                                    .GroupBy(oi => oi.Product)
+                                    .Select(group => new {Product =group.Key, TotalQuantity =group.Sum(g=>g.Quantity)})
+                                    .OrderByDescending(x=> x.TotalQuantity)
+                                    .Select(x=> x.Product)
+                                    .FirstOrDefaultAsync();
+            if(mostSoldProduct == null)
+            {
+                throw new KeyNotFoundException("No Products Found");
+            }
+            return mostSoldProduct;
         }
     }
 }

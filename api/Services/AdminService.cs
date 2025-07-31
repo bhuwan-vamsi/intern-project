@@ -32,7 +32,7 @@ namespace APIPractice.Services
             var identityResult = await userManager.CreateAsync(identityUser, registerEmployeeRequest.Password);
             if (identityResult.Succeeded)
             {
-                if (registerEmployeeRequest.Role != null && (registerEmployeeRequest.Role.Equals("Manager") || registerEmployeeRequest.Role.Equals("Employee")))
+                if (registerEmployeeRequest.Role != null && (registerEmployeeRequest.Role.ToLower().Equals("manager") || registerEmployeeRequest.Role.ToLower().Equals("employee")))
                 {
                     identityResult = await userManager.AddToRoleAsync(identityUser, registerEmployeeRequest.Role);
                     if (identityResult.Succeeded)

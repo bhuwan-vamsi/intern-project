@@ -15,6 +15,7 @@ namespace APIPractice.Mappings
             CreateMap<OrderItem, OrderHistoryDto>().ReverseMap();
             CreateMap<Order, OrderHistoryDto>().ReverseMap();
             CreateMap<Customer, CustomerDto>().ReverseMap();
+            CreateMap<OrderResponseDto, Product>().ReverseMap();
         }
     }
 }

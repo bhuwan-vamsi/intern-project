@@ -1,5 +1,7 @@
 ﻿using APIPractice.CustomAcitonFilters;
+using APIPractice.Models.Domain;
 using APIPractice.Models.DTO;
+using APIPractice.Models.Responses;
 using APIPractice.Services;
 using APIPractice.Services.IService;
 using Microsoft.AspNetCore.Authorization;
@@ -34,7 +36,7 @@ namespace APIPractice.Controllers
             try
             {
                 var employee = await adminService.GetEmployee(id);
-                return Ok(employee);
+                return Ok(OkResponse<Employee>.Success(employee));
             }
             catch (Exception ex)
             {
@@ -52,7 +54,7 @@ namespace APIPractice.Controllers
             try
             {
                 await adminService.RegisterEmployee(registerEmployeeRequest);
-                return Ok("User Registered");
+                return Created();
             }
             catch (Exception ex)
             {
@@ -68,7 +70,7 @@ namespace APIPractice.Controllers
             try
             {
                 await adminService.AssignManager(updateEmployee);
-                return Ok("Manager Assigned");
+                return Ok(OkResponse<string>.Success("Manager Assigned"));
             }
             catch (Exception ex)
             {

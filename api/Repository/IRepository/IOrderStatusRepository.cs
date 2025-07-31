@@ -6,8 +6,8 @@ namespace APIPractice.Repository.IRepository
     {
         public Task<OrderStatus> AddAsync(OrderStatus orderStatus);
 
-        public Task<Guid> GetIdOfStatus(string name);
+        public Task<OrderStatus> GetStatus(string name);
 
-        public Task<OrderStatus> GetOrderStatusById(Guid id);
+        //public Task<OrderStatus> GetOrderStatusById(Guid id);
     }
 }
