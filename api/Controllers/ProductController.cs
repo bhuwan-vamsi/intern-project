@@ -55,7 +55,7 @@ namespace APIPractice.Controller
             }
             catch (KeyNotFoundException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(BadResponse<string>.Execute(ex.Message));
             }
             
         }
@@ -91,7 +91,7 @@ namespace APIPractice.Controller
             }
             catch (KeyNotFoundException ex) 
             {
-                return BadRequest(ex.Message);
+                return BadRequest(BadResponse<string>.Execute(ex.Message));
             }
         }
 
@@ -124,7 +124,7 @@ namespace APIPractice.Controller
             }
             catch (KeyNotFoundException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(BadResponse<string>.Execute(ex.Message));
             }
         }
 
@@ -142,7 +142,7 @@ namespace APIPractice.Controller
             }
             catch (KeyNotFoundException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(BadResponse<string>.Execute(ex.Message));
             }
         }
     }

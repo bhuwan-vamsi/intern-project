@@ -11,9 +11,10 @@ namespace APIPractice.Models.Domain
         public Guid ProductId { get; set; }
 
         public Guid ManagerId { get; set; }
+        public decimal Price { get; set; }
 
-        public int Quantity { get; set; }
-
+        public int QuantityIn { get; set; }
+        public int QuantityRemaining { get; set; }
         public DateTime UpdatedAt { get; set; }
 
         // Navigation Properties

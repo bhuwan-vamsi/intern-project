@@ -1,14 +1,9 @@
 ﻿using APIPractice.CustomAcitonFilters;
 using APIPractice.Models.DTO;
 using APIPractice.Models.Responses;
-using APIPractice.Repository;
-using APIPractice.Repository.IRepository;
 using APIPractice.Services.IService;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace APIPractice.Controller
 {
@@ -23,8 +18,42 @@ namespace APIPractice.Controller
             this.authService = authService;
         }
 
-        [HttpPost]
-        [Route("Login")]
+        [HttpPost("register-customer")]
+        [ValidateModel]
+        public async Task<IActionResult> RegisterCustomer([FromBody] RegisterCustomerRequest registerCustomerRequest)
+        {
+            try
+            {
+                await authService.RegisterCustomer(registerCustomerRequest);
+                return StatusCode(StatusCodes.Status201Created);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(BadResponse<string>.Execute(ex.Message));
+            }
+        }
+
+        [HttpPost("register-staff")]
+        [ValidateModel]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RegisterStaff([FromBody] RegisterStaffRequest registerStaffRequest)
+        {
+            try
+            {
+                await authService.RegisterStaff(registerStaffRequest);
+                return StatusCode(StatusCodes.Status201Created, OkResponse<string>.Success("Staff registered successfully."));
+            }
+            catch (ArgumentException argEx)
+            {
+                return BadRequest(BadResponse<string>.Execute(argEx.Message));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, BadResponse<string>.Execute($"An error occurred while registering staff: {ex.Message}"));
+            }
+        }
+
+        [HttpPost("login")]
         [ValidateModel]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
@@ -35,22 +64,7 @@ namespace APIPractice.Controller
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        [ValidateModel]
-        [Route("RegisterCustomer")]
-        public async Task<IActionResult> RegisterCustomer([FromBody] RegisterCustomerRequest registerCustomerRequest)
-        {
-            try
-            {
-                await authService.RegisterCustomer(registerCustomerRequest);
-                return Created();
-            }catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
+                return BadRequest(BadResponse<string>.Execute(ex.Message));
             }
         }
     }

@@ -7,48 +7,20 @@
       "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\controllers\\testcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:controllers\\testcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\models\\dto\\editprofilerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:models\\dto\\editprofilerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\controllers\\taskhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:controllers\\taskhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\services\\adminservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:services\\adminservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\repository\\registeruserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:repository\\registeruserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Migrations\\ApplicationAuthDb\\20250731054131_lol2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\ApplicationAuthDb\\20250731054131_lol2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Migrations\\20250731054040_lol1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250731054040_lol1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\db dump\\databasefunctions.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:db dump\\databasefunctions.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\models\\dto\\completetaskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:models\\dto\\completetaskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,128 +30,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 4,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "Controllers\\OrderController.cs",
+              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "Controllers\\OrderController.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAwwDgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T17:55:47.125Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CompleteTaskDto.cs",
+              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Models\\DTO\\CompleteTaskDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTO\\CompleteTaskDto.cs",
+              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Models\\DTO\\CompleteTaskDto.cs",
+              "RelativeToolTip": "Models\\DTO\\CompleteTaskDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T07:12:20.995Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "TestController.cs",
-              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\TestController.cs",
-              "RelativeDocumentMoniker": "Controllers\\TestController.cs",
-              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\TestController.cs",
-              "RelativeToolTip": "Controllers\\TestController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Title": "EditProfileRequest.cs",
+              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Models\\DTO\\EditProfileRequest.cs",
+              "RelativeDocumentMoniker": "Models\\DTO\\EditProfileRequest.cs",
+              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Models\\DTO\\EditProfileRequest.cs",
+              "RelativeToolTip": "Models\\DTO\\EditProfileRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-31T06:43:02.049Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
-              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "Controllers\\ProductController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwCQAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-31T06:31:40.374Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-04T06:38:26.261Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "CustomerController.cs",
-              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\CustomerController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CustomerController.cs",
-              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\CustomerController.cs",
-              "RelativeToolTip": "Controllers\\CustomerController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "TaskHistoryController.cs",
+              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\TaskHistoryController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TaskHistoryController.cs",
+              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\TaskHistoryController.cs",
+              "RelativeToolTip": "Controllers\\TaskHistoryController.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAowI8AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-31T06:31:29.427Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "20250731054131_lol2.cs",
-              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Migrations\\ApplicationAuthDb\\20250731054131_lol2.cs",
-              "RelativeDocumentMoniker": "Migrations\\ApplicationAuthDb\\20250731054131_lol2.cs",
-              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Migrations\\ApplicationAuthDb\\20250731054131_lol2.cs",
-              "RelativeToolTip": "Migrations\\ApplicationAuthDb\\20250731054131_lol2.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-31T05:41:32.133Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "20250731054040_lol1.cs",
-              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Migrations\\20250731054040_lol1.cs",
-              "RelativeDocumentMoniker": "Migrations\\20250731054040_lol1.cs",
-              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Migrations\\20250731054040_lol1.cs",
-              "RelativeToolTip": "Migrations\\20250731054040_lol1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-31T05:40:41.272Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "DatabaseFunctions.txt",
-              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\DB Dump\\DatabaseFunctions.txt",
-              "RelativeDocumentMoniker": "DB Dump\\DatabaseFunctions.txt",
-              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\DB Dump\\DatabaseFunctions.txt",
-              "RelativeToolTip": "DB Dump\\DatabaseFunctions.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-07-31T05:39:19.559Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "RegisterUserRepository.cs",
-              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Repository\\RegisterUserRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\RegisterUserRepository.cs",
-              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Repository\\RegisterUserRepository.cs",
-              "RelativeToolTip": "Repository\\RegisterUserRepository.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBoAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T19:11:47.076Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Controllers\\AuthController.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T18:52:54.324Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Services\\AuthService.cs",
-              "RelativeDocumentMoniker": "Services\\AuthService.cs",
-              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Services\\AuthService.cs",
-              "RelativeToolTip": "Services\\AuthService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFkAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T16:43:37.924Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-04T05:49:44.01Z"
             },
             {
               "$type": "Document",
@@ -189,35 +89,9 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAIsAAAAAAAAAAAAgwJsAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAAADwAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T15:27:31.329Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AdminService.cs",
-              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Services\\AdminService.cs",
-              "RelativeDocumentMoniker": "Services\\AdminService.cs",
-              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Services\\AdminService.cs",
-              "RelativeToolTip": "Services\\AdminService.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAowDMAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:41:21.848Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\AdminController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\AdminController.cs",
-              "RelativeToolTip": "Controllers\\AdminController.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAwwDIAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:41:05.083Z",
+              "WhenOpened": "2025-08-04T05:49:22.308Z",
               "EditorCaption": ""
             }
           ]

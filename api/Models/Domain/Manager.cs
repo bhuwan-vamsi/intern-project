@@ -7,9 +7,7 @@ namespace APIPractice.Models.Domain
     {
         [Key]
         public Guid Id { get; set; } // This Id will be extracted from Identity User
-
-        public required string Name { get; set; }
-
+        public required bool IsActive { get; set; }
 
         // Reverse Navigation Properties
         [JsonIgnore]

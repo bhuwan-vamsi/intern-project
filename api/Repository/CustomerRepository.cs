@@ -41,13 +41,13 @@ namespace APIPractice.Repository
                 {
                     throw new Exception("The user is not found");
                 }
-                if (db.Customers.Any(c => c.Phone == request.Phone && c.Id != id)) 
+                if (db.Customers.Any(c => c.PhoneNumber == request.PhoneNumber && c.Id != id)) 
                 {
                     throw new ConflictException("Phone Number Already Exists");
                 }
                 existingCustomer.Name = request.Name;
                 existingCustomer.Address = request.Address;
-                existingCustomer.Phone = request.Phone;
+                existingCustomer.PhoneNumber = request.PhoneNumber;
                 db.Customers.Update(existingCustomer);
                 await db.SaveChangesAsync();
             }

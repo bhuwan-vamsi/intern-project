@@ -28,8 +28,19 @@ namespace APIPractice
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOriginSafely", policy =>
+                {
+                    policy
+                        .SetIsOriginAllowed(origin => true) // allows all origins dynamically
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
 
+            // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddHttpContextAccessor();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -47,15 +58,20 @@ namespace APIPractice
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IRegisterUserRepository, RegisterUserRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IStockRepository, StockRepository>();
 
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<TransactionManager>();
+
             //// Hide the below line once after running whole app
             //builder.Services.AddScoped<ProductCsvImporter>();
+            //builder.Services.AddScoped<AdminSeeder>();
+
             builder.Services.AddScoped<IRegisterUserRepository, RegisterUserRepository>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IAdminService, AdminService>();
             builder.Services.AddScoped<IStatisticService, StatisticService>();
@@ -118,10 +134,10 @@ namespace APIPractice
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                 });
 
-            builder.WebHost.ConfigureKestrel(serverOptions =>
-            {
-                serverOptions.ListenAnyIP(5000);
-            });
+            //builder.WebHost.ConfigureKestrel(serverOptions =>
+            //{
+            //    serverOptions.ListenAnyIP(5000);
+            //});
 
             var app = builder.Build();
 
@@ -131,9 +147,15 @@ namespace APIPractice
             //{
             //    var importer = scope.ServiceProvider.GetRequiredService<ProductCsvImporter>();
 
-            //    var csvPath = Path.Combine(Directory.GetCurrentDirectory(), "DB Dump", "Items.csv");
+            //    var csvPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "Items.csv");
 
             //    importer.ImportProductsFromCsvAsync(csvPath).GetAwaiter().GetResult();
+            //}
+
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var adminSeeder = scope.ServiceProvider.GetRequiredService<AdminSeeder>();
+            //    adminSeeder.SeedAdminAsync().GetAwaiter().GetResult();
             //}
 
             //Configure the HTTP request pipeline.
@@ -143,17 +165,13 @@ namespace APIPractice
                 app.UseSwaggerUI();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
-            //app.UseAuthentication();
+            app.UseCors("AllowAnyOriginSafely");
 
-            //app.UseAuthorization();
+            app.UseAuthentication();
 
-            app.Use(async (context, next) =>
-            {
-                Console.WriteLine($"Incoming request from {context.Connection.RemoteIpAddress}");
-                await next();
-            });
+            app.UseAuthorization();
 
             app.MapControllers();
 

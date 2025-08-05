@@ -2,10 +2,8 @@
 using APIPractice.Models.Domain;
 using APIPractice.Models.DTO;
 using APIPractice.Models.Responses;
-using APIPractice.Services;
 using APIPractice.Services.IService;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIPractice.Controllers
@@ -21,16 +19,23 @@ namespace APIPractice.Controllers
             this.adminService = adminService;
         }
 
-        [HttpGet]
-        [ValidateModel]
-        [Authorize(Roles ="Admin")]
-        public async Task<IActionResult> GetAllEmployee()
+        [HttpGet("employees")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllEmployees()
         {
-            return Ok(await adminService.GetAllEmployee());
+            try
+            {
+                var employees = await adminService.GetAllEmployee();
+                return Ok(OkResponse<IEnumerable<Employee>>.Success(employees));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, BadResponse<string>.Execute($"An error occurred while fetching employees: {ex.Message}"));
+            }
         }
-        [HttpGet]
-        [Route("{id}")]
-        [ValidateModel]
+
+        [HttpGet("employees/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetEmployeeById([FromRoute] Guid id)
         {
             try
@@ -38,43 +43,33 @@ namespace APIPractice.Controllers
                 var employee = await adminService.GetEmployee(id);
                 return Ok(OkResponse<Employee>.Success(employee));
             }
+            catch (KeyNotFoundException knfEx)
+            {
+                return NotFound(BadResponse<string>.Execute(knfEx.Message));
+            }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, BadResponse<string>.Execute($"An error occurred while fetching employee: {ex.Message}"));
             }
         }
 
-
-        [HttpPost]
-        [Route("RegisterEmployee")]
+        [HttpPut("employees/assign-manager")]
         [ValidateModel]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Regsiter([FromBody] RegisterEmployeeRequest registerEmployeeRequest)
-        {
-            try
-            {
-                await adminService.RegisterEmployee(registerEmployeeRequest);
-                return Created();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost]
-        [Route("AssignManager")]
-        [ValidateModel]
-        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> AssignManager([FromBody] UpdateEmployeeRequest updateEmployee)
         {
             try
             {
                 await adminService.AssignManager(updateEmployee);
-                return Ok(OkResponse<string>.Success("Manager Assigned"));
+                return Ok(OkResponse<string>.Success("Manager assigned successfully."));
+            }
+            catch (ArgumentException argEx)
+            {
+                return BadRequest(BadResponse<string>.Execute(argEx.Message));
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, BadResponse<string>.Execute($"An error occurred while assigning manager: {ex.Message}"));
             }
         }
     }

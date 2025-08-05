@@ -2,10 +2,16 @@
 
 namespace APIPractice.Models.DTO
 {
-    public class RegisterCustomerRequest : RegisterEmployeeRequest
+    public class RegisterCustomerRequest
     {
         [Required]
+        [DataType(DataType.EmailAddress)]
+        public required string Email { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public required string Password { get; set; }
+        [Required]
         [DataType(DataType.PhoneNumber)]
-        public required string Phone { get; set; }
+        public required string PhoneNumber { get; set; }
     }
 }

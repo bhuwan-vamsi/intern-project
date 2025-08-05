@@ -4,15 +4,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace APIPractice.Models.Domain
 {
-    [Index(nameof(Phone), IsUnique = true)]
+    [Index(nameof(PhoneNumber), IsUnique = true)]
     public class Customer
     {
         [Key]
         public Guid Id { get; set; } // This Id will be extracted from Identity User
 
-        public required string Name { get; set; }
+        public string? Name { get; set; }
 
-        public required string Phone { get; set; }
+        public required string PhoneNumber { get; set; }
 
         public string? Address { get; set; }
 

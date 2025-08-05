@@ -76,7 +76,7 @@ namespace APIPractice.Repository
                 Id = Guid.NewGuid(),
                 ProductId = entity.Id,
                 ManagerId = managerId,
-                Quantity = entity.Quantity,
+                QuantityIn = entity.Quantity,
                 UpdatedAt = DateTime.Now
             };
             await _db.Products.AddAsync(entity);
@@ -87,20 +87,20 @@ namespace APIPractice.Repository
         {
             await transactionManager.ExecuteInTransactionAsync(async () =>
             {
-                if (existingProduct.Quantity != updatedProduct.Quantity && existingProduct.Quantity < updatedProduct.Quantity)
+                if (existingProduct.Quantity < updatedProduct.Quantity)
                 {
                     var stockUpdate = new StockUpdateHistory
                     {
                         Id = Guid.NewGuid(),
                         ProductId = existingProduct.Id,
                         ManagerId = managerId,
-                        Quantity = updatedProduct.Quantity,
+                        QuantityIn = updatedProduct.Quantity,
                         UpdatedAt = DateTime.Now
                     };
                     await _db.StockUpdateHistories.AddAsync(stockUpdate);
                     await _db.SaveChangesAsync();
                 }
-                else if (existingProduct.Quantity > updatedProduct.Quantity)
+                else if (existingProduct.Quantity >= updatedProduct.Quantity)
                 {
                     throw new InvalidOperationException("Cannot reduce quantity below current stock.");
                 }

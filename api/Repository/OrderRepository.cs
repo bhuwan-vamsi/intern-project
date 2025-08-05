@@ -3,6 +3,7 @@ using APIPractice.Infrastructure;
 using APIPractice.Models.Domain;
 using APIPractice.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace APIPractice.Repository
 {
@@ -45,11 +46,16 @@ namespace APIPractice.Repository
 
         public async Task<List<Order>> GetOrderHistoryOfCustomer(Guid customerId)
         {
-            List<Order> orders = await db.Orders.Include("OrderItems").Include("OrderStatus").Include("OrderItems.Product").
-                Include("OrderItems.Product.Category").Include("Customer").Where(x=>x.CustomerId == customerId)
-                .OrderBy(u => u.CreatedAt).ToListAsync();
+            List<Order> orders = await db.Orders
+                                .Include(o => o.OrderItems)
+                                .ThenInclude(oi => oi.Product)
+                                .ThenInclude(p => p.Category)
+                                .Include(o => o.OrderStatus)
+                                .Include(o => o.Customer)
+                                .Where(o => o.CustomerId == customerId)
+                                .OrderBy(o => o.CreatedAt)
+                                .ToListAsync();
 
-            
             return orders;
         }
 
@@ -62,7 +68,7 @@ namespace APIPractice.Repository
             return order;
         }
 
-        public async Task UpdateAsync(Guid id,Order order)
+        public async Task UpdateAsync(Guid id, Order order)
         {
             await transactionManager.ExecuteInTransactionAsync(async () =>
             {
@@ -86,11 +92,30 @@ namespace APIPractice.Repository
 
         public async Task<List<Order>> GetOrdersByStatusAsync(string status)
         {
-            var statusEntity = await db.OrderStatuses.FirstOrDefaultAsync(s => s.Name == status);
-            return await db.Orders
-                .Where(o => o.OrderStatus == statusEntity)
-                .Include(o => o.OrderItems)
-                .ToListAsync();
+            try
+            {
+                Console.WriteLine($"[Repository] Looking for status: {status}");
+
+                var statusEntity = await db.OrderStatuses.FirstOrDefaultAsync(s => s.Name == status);
+
+                if (statusEntity == null)
+                {
+                    Console.WriteLine($"[Repository] Status '{status}' not found in OrderStatuses.");
+                    return new List<Order>();
+                }
+
+                return await db.Orders
+                    .Where(o => o.OrderStatusId == statusEntity.Id)
+                    .Include(o => o.OrderItems)
+                        .ThenInclude(oi => oi.Product)
+                            .ThenInclude(p => p.Category)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Repository] Exception: {ex.Message}");
+                return new List<Order>();
+            }
         }
 
         public async Task<List<Order>> GetDeliveredOrdersByEmployeeAsync(Guid employeeId)
@@ -104,6 +129,25 @@ namespace APIPractice.Repository
                 .Where(o => orderIds.Contains(o.Id))
                 .Include(o => o.OrderItems)
                 .ToListAsync();
+        }
+
+        public async Task<List<Order>> GetAllOrderList()
+        {
+            var orders = await db.Orders.ToListAsync();
+            return orders;
+        }
+        public async Task<Dictionary<string, decimal>> GetTotalSalesByMonth()
+        {
+            var salesData = await db.Orders
+                .Where(o => o.DeliveredAt != null)
+                .GroupBy(o => new { o.CreatedAt.Year, o.CreatedAt.Month })
+                .Select(g => new
+                {
+                    Month = new DateTime(g.Key.Year, g.Key.Month, 1).ToString("MMMM yyyy"),
+                    TotalSales = g.Sum(o => o.Amount)
+                })
+                .ToListAsync();
+            return salesData.ToDictionary(x => x.Month, x => x.TotalSales);
         }
     }
 }

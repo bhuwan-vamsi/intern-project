@@ -9,8 +9,9 @@ namespace APIPractice.Repository.IRepository
         public Task<List<Order>> GetOrderHistoryOfCustomer(Guid customerId);
         public Task<Order?> GetOrderByIdAsync(Guid orderId, Guid customerId);
         public Task DeleteOrderOfCustomer(Guid customerId);
-
+        public Task<List<Order>> GetAllOrderList();
         public Task<List<Order>> GetOrdersByStatusAsync(string status);
         public Task<List<Order>> GetDeliveredOrdersByEmployeeAsync(Guid employeeId);
+        public Task<Dictionary<string, decimal>> GetTotalSalesByMonth();
     }
 }

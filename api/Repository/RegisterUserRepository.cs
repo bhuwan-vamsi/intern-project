@@ -3,7 +3,6 @@ using APIPractice.Models.Domain;
 using APIPractice.Models.DTO;
 using APIPractice.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace APIPractice.Repository
 {
@@ -15,24 +14,23 @@ namespace APIPractice.Repository
         {
             this.db = db;
         }
-        public async Task<Employee> AddEmployee(RegisterEmployeeRequest registerRequest, IdentityUser identityUser)
+        public async Task<Employee> AddEmployee(RegisterStaffRequest registerRequest, IdentityUser identityUser)
         {
             var user = new Employee
             {
                 Id = Guid.Parse(identityUser.Id),
-                Name = registerRequest.Name,
                 IsActive = true
             };
             await db.Employees.AddAsync(user);
             await db.SaveChangesAsync();
             return user;
         }
-        public async Task<Manager> AddManager(RegisterEmployeeRequest registerRequest, IdentityUser identityUser)
+        public async Task<Manager> AddManager(RegisterStaffRequest registerRequest, IdentityUser identityUser)
         {
             var user = new Manager
             {
                 Id = Guid.Parse(identityUser.Id),
-                Name = registerRequest.Name
+                IsActive = true
             };
             await db.Managers.AddAsync(user);
             await db.SaveChangesAsync();
@@ -41,17 +39,23 @@ namespace APIPractice.Repository
 
         public async Task<Customer> AddCustomer(RegisterCustomerRequest registerCustomer, IdentityUser identityUser)
         {
-            var user = new Customer
+            try
             {
-                Id = Guid.Parse(identityUser.Id),
-                Name = registerCustomer.Name,
-                IsActive = true,
-                Phone = registerCustomer.Phone,
-            };
+                var user = new Customer
+                {
+                    Id = Guid.Parse(identityUser.Id),
+                    IsActive = true,
+                    PhoneNumber = registerCustomer.PhoneNumber,
+                };
 
-            await db.Customers.AddAsync(user);
-            await db.SaveChangesAsync();
-            return user;
+                await db.Customers.AddAsync(user);
+                await db.SaveChangesAsync();
+                return user;
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

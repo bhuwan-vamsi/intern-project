@@ -1,9 +1,7 @@
 ﻿namespace APIPractice.Models.DTO.TaskHistory
 {
-    public class CreateTaskHistoryDto
+    public class CompleteTaskDto
     {
         public Guid OrderId { get; set; }
-
-        public Guid? EmployeeId { get; set; }
     }
 }

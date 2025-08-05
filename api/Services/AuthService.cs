@@ -2,10 +2,7 @@
 using APIPractice.Models.DTO;
 using APIPractice.Repository.IRepository;
 using APIPractice.Services.IService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 
 namespace APIPractice.Services
 {
@@ -21,57 +18,80 @@ namespace APIPractice.Services
             this.tokenRepository = tokenRepository;
             this.userRepository = userRepository;
         }
-        
+
         public async Task RegisterCustomer(RegisterCustomerRequest registerCustomerRequest)
         {
             var identityUser = new IdentityUser
             {
                 Id = Guid.NewGuid().ToString(),
-                UserName = registerCustomerRequest.UserName,
-                Email = registerCustomerRequest.UserName
+                Email = registerCustomerRequest.Email,
+                UserName = registerCustomerRequest.Email
             };
 
             var identityResult = await userManager.CreateAsync(identityUser, registerCustomerRequest.Password);
+
+            if (!identityResult.Succeeded)
+            {
+                var errors = string.Join(", ", identityResult.Errors.Select(e => e.Description));
+                throw new Exception($"Failed to create user: {errors}");
+            }
+
+            var roleResult = await userManager.AddToRoleAsync(identityUser, "customer");
+            if (!roleResult.Succeeded)
+            {
+                await userManager.DeleteAsync(identityUser);
+                throw new Exception("Failed to assign role to user.");
+            }
+
+            try
+            {
+                await userRepository.AddCustomer(registerCustomerRequest, identityUser);
+            }
+            catch (Exception)
+            {
+                await userManager.DeleteAsync(identityUser);
+                throw new NotFoundException("The phone number already exists.");
+            }
+        }
+
+        public async Task RegisterStaff(RegisterStaffRequest registerStaffRequest)
+        {
+            var identityUser = new IdentityUser
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = registerStaffRequest.Email,
+                UserName = registerStaffRequest.Email
+            };
+            var identityResult = await userManager.CreateAsync(identityUser, registerStaffRequest.Password);
             if (identityResult.Succeeded)
             {
-                if(registerCustomerRequest.Role != null && registerCustomerRequest.Role.Any())
+                if (registerStaffRequest.Role != null && (registerStaffRequest.Role.ToLower().Equals("manager") || registerStaffRequest.Role.ToLower().Equals("employee")))
                 {
-                    identityResult = await userManager.AddToRoleAsync(identityUser, registerCustomerRequest.Role);
-                    if (identityResult.Succeeded)
+                    identityResult = await userManager.AddToRoleAsync(identityUser, registerStaffRequest.Role);
+                    if (registerStaffRequest.Role.ToLower() == "manager")
                     {
-                        try
-                        {
-                            await userRepository.AddCustomer(registerCustomerRequest, identityUser);
-                        }
-                        catch (Exception e)
-                        {
-                            await userManager.DeleteAsync(identityUser);
-                            throw new NotFoundException("The phone number already exists");
-                        }
+                        await userRepository.AddManager(registerStaffRequest, identityUser);
                     }
-                    else
+                    else if (registerStaffRequest.Role.ToLower() == "employee")
                     {
-                        await userManager.DeleteAsync(identityUser);
-                        throw new NotFoundException("Invalid Role");
+                        await userRepository.AddEmployee(registerStaffRequest, identityUser);
                     }
                 }
                 else
                 {
-                    await userManager.DeleteAsync(identityUser);
-                    throw new NotFoundException("Role not specified");
+                    throw new Exception("Role not specified");
                 }
             }
             else
             {
-                throw new ConflictException("Username already exists");
+                var errors = string.Join(", ", identityResult.Errors.Select(e => e.Description));
+                throw new Exception($"Failed to create user: {errors}");
             }
-
-
         }
 
         public async Task<LoginResponseDto> LoginUser(LoginRequest loginRequest)
         {
-            var user = await userManager.FindByEmailAsync(loginRequest.UserName);
+            var user = await userManager.FindByEmailAsync(loginRequest.Email);
             if (user != null)
             {
                 var checkPassword = await userManager.CheckPasswordAsync(user, loginRequest.Password);
@@ -85,10 +105,12 @@ namespace APIPractice.Services
                         return response;
                     }
                 }
+                else
+                {
+                    throw new Exception("Wrong Password");
+                }
             }
-            throw new Exception("Something Went Wrong");
+            throw new Exception("Couldn't find Email Address");
         }
-
-        
     }
 }

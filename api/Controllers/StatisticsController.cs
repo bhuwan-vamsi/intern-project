@@ -15,8 +15,7 @@ namespace APIPractice.Controllers
         {
             this.statisticService = statisticService;
         }
-        [HttpGet]
-        [Route("InventorySummary")]
+        [HttpGet("inventory-summary")]
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetInventorySummary()
         {
@@ -29,8 +28,7 @@ namespace APIPractice.Controllers
                 return BadRequest("An error occurred while fetching the inventory summary.");
             }
         }
-        [HttpGet]
-        [Route("CategoryDistribution")]
+        [HttpGet("category-distribution")]
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetCategoryDistribuiton()
         {
@@ -44,8 +42,8 @@ namespace APIPractice.Controllers
                 return BadRequest("An error occurred while fetching the category distribution.");
             }
         }
-        [HttpGet]
-        [Route("FastMovingProduct")]
+        [HttpGet("fastmoving-product")]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetFastMovingProducts()
         {
             try
@@ -60,6 +58,38 @@ namespace APIPractice.Controllers
             catch (Exception)
             {
                 return BadRequest("An error occurred while fetching the fast moving product.");
+            }
+        }
+        [HttpGet("price-analysis/{id}")]
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> GetProductPriceAnalysis([FromRoute] Guid id)
+        {
+            try
+            {
+                var priceAnalysis = await statisticService.ProductPriceAnalysis(id);
+                return Ok(priceAnalysis);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("Product not found.");
+            }
+            catch (Exception)
+            {
+                return BadRequest("An error occurred while fetching the product price analysis.");
+            }
+        }
+        [HttpGet("revenue-analysis")]
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> GetRevenueAnalysis()
+        {
+            try
+            {
+                var revenueAnalysis = await statisticService.RevenueAnalysis();
+                return Ok(revenueAnalysis);
+            }
+            catch (Exception)
+            {
+                return BadRequest("An error occurred while fetching the revenue analysis");
             }
         }
     }

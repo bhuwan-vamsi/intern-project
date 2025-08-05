@@ -58,7 +58,6 @@ namespace APIPractice.Services
                     ItemStatus.Add(new ItemResponseDto { status = "failed", error = "Product was Not found", 
                     productId=purchaseOrder.ProductId});
                 }
-
                 if (product.Quantity < purchaseOrder.Quantity)
                 {
                     ItemStatus.Add(new ItemResponseDto
@@ -112,15 +111,20 @@ namespace APIPractice.Services
             }
             foreach (Order order in orders)
             {
-                history.Add(new OrderHistoryDto { Id = order.Id, Status = order.OrderStatus.Name, 
-                    Name =order.Customer.Name, Mobile=order.Customer.Phone , Address = order.Customer.Address,CreatedAt=order.CreatedAt,
-                    DeliveredAt=order.DeliveredAt, Items = mapper.Map<List<OrderResponseDto>>(order.OrderItems.Where(u => u.OrderId == order.Id).Select(u => u.Product)), TotalItems = order.OrderItems.Count,
-                    Billing = new BillingDto { ItemTotal = order.Amount - 46, DeliveryFee = 40, PlatformFee = 6
-                    ,TotalBill=order.Amount}
+                history.Add(new OrderHistoryDto { 
+                    Id = order.Id,
+                    Status = order.OrderStatus.Name,
+                    Name = order.Customer.Name,
+                    Mobile=order.Customer.PhoneNumber,
+                    Address = order.Customer.Address,
+                    CreatedAt=order.CreatedAt,
+                    DeliveredAt=order.DeliveredAt,
+                    Items = mapper.Map<List<OrderResponseDto>>(order.OrderItems),
+                    TotalItems = order.OrderItems.Count,
+                    Billing = new BillingDto { ItemTotal = order.Amount - 46, DeliveryFee = 40, PlatformFee = 6, TotalBill=order.Amount}
                 });
             }
             return history;
-
         }
 
         public async Task<OrderHistoryDto?> ViewOrderById(Guid orderId, Guid userId)
@@ -137,11 +141,11 @@ namespace APIPractice.Services
                     Id = order.Id,
                     Status = order.OrderStatus.Name,
                     Name = order.Customer.Name,
-                    Mobile = order.Customer.Phone,
+                    Mobile = order.Customer.PhoneNumber,
                     Address = order.Customer.Address,
                     CreatedAt = order.CreatedAt,
                     DeliveredAt = order.DeliveredAt,
-                    Items = mapper.Map<List<OrderResponseDto>>(order.OrderItems.Where(u => u.OrderId == order.Id).Select(u => u.Product)),
+                    Items = mapper.Map<List<OrderResponseDto>>(order.OrderItems),
                     TotalItems = order.OrderItems.Count,
                     Billing = new BillingDto
                     {
@@ -152,15 +156,21 @@ namespace APIPractice.Services
                     }
                 };
                 return history;
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new ApplicationException("Error retrieving order by ID.", ex);
             }
         }
 
         public async Task<List<PurchaseOrderRequest>> GetBilledOrdersAsync()
         {
+            Console.WriteLine("[Service] Fetching Billed Orders");
+
             var orders = await orderRepository.GetOrdersByStatusAsync("Billed");
+
+            Console.WriteLine($"[Service] Mapping {orders.Count} orders to DTOs");
+
             return mapper.Map<List<PurchaseOrderRequest>>(orders);
         }
 
@@ -174,5 +184,3 @@ namespace APIPractice.Services
         
     }
 }
-
-//

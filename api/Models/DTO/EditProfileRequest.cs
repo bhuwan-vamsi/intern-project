@@ -4,12 +4,10 @@ namespace APIPractice.Models.DTO
 {
     public class EditProfileRequest
     {
-        [Required]
-        public required string Name { get; set; }
+        public string? Name { get; set; }
 
-        public required string Phone { get; set; }
+        public required string PhoneNumber { get; set; }
 
-        [Required]
-        public required string Address { get; set; } 
+        public string? Address { get; set; } 
     }
 }

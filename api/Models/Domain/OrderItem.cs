@@ -21,10 +21,9 @@ namespace APIPractice.Models.Domain
 
 
         // Navigation Properties
-        //[ForeignKey(nameof(OrderId))]
-        //public Order Order { get; set; }
-
         [ForeignKey(nameof(ProductId))]
         public required Product Product { get; set; }
+        [ForeignKey(nameof(OrderId))]
+        public required Order Orders { get; set; }
     }
 }

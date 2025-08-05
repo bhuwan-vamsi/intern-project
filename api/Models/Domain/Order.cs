@@ -20,15 +20,12 @@ namespace APIPractice.Models.Domain
 
         public DateTime? DeliveredAt { get; set; }
 
-
-
         // Navigation Properties
         [ForeignKey(nameof(CustomerId))]
         public required Customer Customer { get; set; }
 
         [ForeignKey(nameof(OrderStatusId))]
         public required OrderStatus OrderStatus { get; set; }
-
 
         // Reverse Navigation Properties
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();

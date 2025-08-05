@@ -1,28 +1,25 @@
 ﻿using APIPractice.CustomAcitonFilters;
 using APIPractice.Exceptions;
-using APIPractice.Models.Domain;
 using APIPractice.Models.DTO;
 using APIPractice.Models.Responses;
 using APIPractice.Services.IService;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
 namespace APIPractice.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrdersController : ControllerBase
+    public class OrderController : ControllerBase
     {
         private readonly IOrderService orderService;
 
-        public OrdersController(IOrderService orderService)
+        public OrderController(IOrderService orderService)
         {
             this.orderService = orderService;
         }
-        [HttpPost]
+        [HttpPost("create-order")]
         [ValidateModel]
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> CreateOrder([FromBody]PurchaseOrderRequest orders)
@@ -37,16 +34,15 @@ namespace APIPractice.Controllers
                 return Ok(OkResponse<List<ItemResponseDto>>.Success(statusList));
             }catch (BadRequestException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(BadResponse<string>.Execute(ex.Message));
             }
 
         }
 
-        [HttpGet]
-        [Route("ViewHistory")]
+        [HttpGet("order-history")]
         [ValidateModel]
         [Authorize(Roles = "Customer")]
-        public async Task<IActionResult> ViewHistory()
+        public async Task<IActionResult> ViewOrderHistory()
         {
             try
             {
@@ -55,16 +51,16 @@ namespace APIPractice.Controllers
 
                 List<OrderHistoryDto> history = await orderService.ViewHistory(userId);
 
-                return (history.Count>0) ? Ok(OkResponse<List<OrderHistoryDto>>.Success(history)) 
-                    : Ok(OkResponse<List<OrderHistoryDto>>.Empty());
+                return history.Count > 0
+                    ? Ok(OkResponse<List<OrderHistoryDto>>.Success(history))
+                    : NoContent();
             }catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(BadResponse<string>.Execute(ex.Message));
             }
         }
 
-        [HttpGet]
-        [Route("VewOrder/{id:Guid}")]
+        [HttpGet("order-history/{id:Guid}")]
         [ValidateModel]
         [Authorize(Roles ="Customer")]
         public async Task<IActionResult> ViewOrderById([FromRoute] Guid id)
@@ -80,20 +76,38 @@ namespace APIPractice.Controllers
                     : Ok(OkResponse<OrderHistoryDto>.Empty());
             }catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(BadResponse<string>.Execute(ex.Message));
             }
         }
 
-        [HttpGet("BilledOrders")]
+        [HttpGet("billed-orders")]
         [ValidateModel]
         [Authorize(Roles = "Employee")]
         public async Task<IActionResult> GetBilledOrders()
         {
-            var orders = await orderService.GetBilledOrdersAsync();
-            return Ok(orders);
+            try
+            {
+                Console.WriteLine("[Controller] Request received to fetch billed orders");
+
+                var orders = await orderService.GetBilledOrdersAsync();
+
+                if (orders == null || orders.Count == 0)
+                {
+                    Console.WriteLine("[Controller] No billed orders found.");
+                    return Ok("No billed orders found.");
+                }
+
+                Console.WriteLine($"[Controller] Returning {orders.Count} billed orders");
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Controller] Exception: {ex.Message}");
+                return StatusCode(500, "An error occurred while fetching billed orders.");
+            }
         }
 
-        [HttpGet("DeliveredByMe")]
+        [HttpGet("delivered-orders")]
         [ValidateModel]
         [Authorize(Roles = "Employee")]
         public async Task<IActionResult> GetDeliveredOrdersByMe()
@@ -104,12 +118,3 @@ namespace APIPractice.Controllers
         }
     }
 }
-///<summar>
-/// OrderDto
-/// OrderItemsDTO
-/// OrderDto -> List<OrderItemsDto>
-/// 
-/// var claimsIdentity = (ClaimsIdentity)User.Identity;
-/// 
-/// { {id=1,productname="babycare"} , {...} , {...} }
-/// </summar>
