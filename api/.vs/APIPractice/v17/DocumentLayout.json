@@ -7,16 +7,32 @@
       "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\controllers\\taskhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:controllers\\taskhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\services\\taskhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:services\\taskhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\services\\iservice\\itaskhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:services\\iservice\\itaskhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\repository\\taskhistoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:repository\\taskhistoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\repository\\irepository\\itaskhistoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:repository\\irepository\\itaskhistoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\models\\dto\\editprofilerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:models\\dto\\editprofilerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\controllers\\taskhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|solutionrelative:controllers\\taskhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{79BE4F1F-4CC5-4A3D-B6D2-4CA53EAC594C}|APIPractice.csproj|c:\\users\\bhunv\\onedrive\\desktop\\intern-project\\api\\models\\dto\\completetaskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,11 +46,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "TaskHistoryService.cs",
+              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Services\\TaskHistoryService.cs",
+              "RelativeDocumentMoniker": "Services\\TaskHistoryService.cs",
+              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Services\\TaskHistoryService.cs",
+              "RelativeToolTip": "Services\\TaskHistoryService.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAiwF8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-06T11:40:41.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ITaskHistoryService.cs",
+              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Services\\IService\\ITaskHistoryService.cs",
+              "RelativeDocumentMoniker": "Services\\IService\\ITaskHistoryService.cs",
+              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Services\\IService\\ITaskHistoryService.cs",
+              "RelativeToolTip": "Services\\IService\\ITaskHistoryService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-06T11:40:21.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TaskHistoryRepository.cs",
+              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Repository\\TaskHistoryRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\TaskHistoryRepository.cs",
+              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Repository\\TaskHistoryRepository.cs",
+              "RelativeToolTip": "Repository\\TaskHistoryRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-06T11:39:51.88Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ITaskHistoryRepository.cs",
+              "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Repository\\IRepository\\ITaskHistoryRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\IRepository\\ITaskHistoryRepository.cs",
+              "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Repository\\IRepository\\ITaskHistoryRepository.cs",
+              "RelativeToolTip": "Repository\\IRepository\\ITaskHistoryRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-06T11:39:22.148Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "OrderController.cs",
               "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\OrderController.cs",
               "RelativeDocumentMoniker": "Controllers\\OrderController.cs",
@@ -42,12 +110,11 @@
               "RelativeToolTip": "Controllers\\OrderController.cs",
               "ViewState": "AgIAAC8AAAAAAAAAAAAwwDgAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-04T17:55:47.125Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-04T17:55:47.125Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "CompleteTaskDto.cs",
               "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Models\\DTO\\CompleteTaskDto.cs",
               "RelativeDocumentMoniker": "Models\\DTO\\CompleteTaskDto.cs",
@@ -59,7 +126,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "EditProfileRequest.cs",
               "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Models\\DTO\\EditProfileRequest.cs",
               "RelativeDocumentMoniker": "Models\\DTO\\EditProfileRequest.cs",
@@ -71,15 +138,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "TaskHistoryController.cs",
               "DocumentMoniker": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\TaskHistoryController.cs",
               "RelativeDocumentMoniker": "Controllers\\TaskHistoryController.cs",
               "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Controllers\\TaskHistoryController.cs",
               "RelativeToolTip": "Controllers\\TaskHistoryController.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAowI8AAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAiwDUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-04T05:49:44.01Z"
+              "WhenOpened": "2025-08-04T05:49:44.01Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -89,7 +157,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\bhunv\\OneDrive\\Desktop\\intern-project\\api\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAAADwAAABMAAAAAAAAAA==",
+              "ViewState": "AgIAADQAAAAAAAAAAAAgwD4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-04T05:49:22.308Z",
               "EditorCaption": ""

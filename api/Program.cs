@@ -59,7 +59,9 @@ namespace APIPractice
             builder.Services.AddScoped<IRegisterUserRepository, RegisterUserRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IStockRepository, StockRepository>();
+            builder.Services.AddScoped<ITaskHistoryRepository, TaskHistoryRepository>();
 
+            builder.Services.AddScoped<ITaskHistoryService, TaskHistoryService>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<TransactionManager>();
